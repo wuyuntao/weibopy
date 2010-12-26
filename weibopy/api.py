@@ -11,7 +11,7 @@ from weibopy.parsers import ModelParser
 
 
 class API(object):
-    """Twitter API"""
+    """Sina API"""
 
     def __init__(self, auth_handler=None,
             host='api.t.sina.com.cn', search_host='api.t.sina.com.cn',
