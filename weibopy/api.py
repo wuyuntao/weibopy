@@ -737,6 +737,13 @@ class API(object):
         payload_type = 'json',
         allowed_param = ['date', 'exclude']
     )
+
+    """ provinces """
+    provinces = bind_api(
+        path = '/provinces.json',
+        payload_type = 'json'
+    )
+
     """ Internal use only """
     @staticmethod
     def _pack_image(filename, max_size, source=None, status=None, lat=None, long=None, contentname="image"):
