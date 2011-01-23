@@ -66,7 +66,7 @@ class API(object):
         allowed_param = ['id', 'cid', 'comment'],
         require_auth = True
     )
-    
+
     """ statuses/comment_destroy """
     comment_destroy  = bind_api(
         path = '/statuses/comment_destroy/{id}.json',
@@ -75,7 +75,7 @@ class API(object):
         allowed_param = ['id'],
         require_auth = True
     )
-    
+
     """ statuses/comments_timeline """
     comments = bind_api(
         path = '/statuses/comments.json',
@@ -83,7 +83,7 @@ class API(object):
         allowed_param = ['id', 'count', 'page'],
         require_auth = True
     )
-    
+
     """ statuses/comments_timeline """
     comments_timeline = bind_api(
         path = '/statuses/comments_timeline.json',
@@ -91,7 +91,7 @@ class API(object):
         allowed_param = ['since_id', 'max_id', 'count', 'page'],
         require_auth = True
     )
-    
+
     """ statuses/comments_by_me """
     comments_by_me = bind_api(
         path = '/statuses/comments_by_me.json',
@@ -99,7 +99,7 @@ class API(object):
         allowed_param = ['since_id', 'max_id', 'count', 'page'],
         require_auth = True
     )
-    
+
     """ statuses/user_timeline """
     user_timeline = bind_api(
         path = '/statuses/user_timeline.json',
@@ -123,13 +123,13 @@ class API(object):
         allowed_param = ['ids'],
         require_auth = True
     )
-    
+
     """ statuses/unread """
     unread = bind_api(
         path = '/statuses/unread.json',
         payload_type = 'counts'
     )
-    
+
     """ statuses/retweeted_by_me """
     retweeted_by_me = bind_api(
         path = '/statuses/retweeted_by_me.json',
@@ -156,7 +156,7 @@ class API(object):
 
     """ statuses/show """
     get_status = bind_api(
-        path = '/statuses/show.json',
+        path = '/statuses/show/{id}.json',
         payload_type = 'status',
         allowed_param = ['id']
     )
@@ -176,26 +176,26 @@ class API(object):
         headers, post_data = API._pack_image(filename, 1024, source=source, status=status, lat=lat, long=long, contentname="pic")
         args = [status]
         allowed_param = ['status']
-        
+
         if lat is not None:
             args.append(lat)
             allowed_param.append('lat')
-        
+
         if long is not None:
             args.append(long)
             allowed_param.append('long')
-        
+
         if source is not None:
             args.append(source)
             allowed_param.append('source')
         return bind_api(
-            path = '/statuses/upload.json',            
+            path = '/statuses/upload.json',
             method = 'POST',
             payload_type = 'status',
             require_auth = True,
-            allowed_param = allowed_param            
+            allowed_param = allowed_param
         )(self, *args, post_data=post_data, headers=headers)
-        
+
     """ statuses/reply """
     reply = bind_api(
         path = '/statuses/reply.json',
@@ -204,7 +204,7 @@ class API(object):
         allowed_param = ['id', 'cid','comment'],
         require_auth = True
     )
-    
+
     """ statuses/repost """
     repost = bind_api(
         path = '/statuses/repost.json',
@@ -213,7 +213,7 @@ class API(object):
         allowed_param = ['id', 'status'],
         require_auth = True
     )
-    
+
     """ statuses/destroy """
     destroy_status = bind_api(
         path = '/statuses/destroy/{id}.json',
@@ -246,7 +246,7 @@ class API(object):
         payload_type = 'user',
         allowed_param = ['id', 'user_id', 'screen_name']
     )
-    
+
     """ Get the authenticated user """
     def me(self):
         return self.get_user(screen_name=self.auth.get_username())
@@ -296,7 +296,7 @@ class API(object):
         allowed_param = ['id', 'screen_name', 'user_id', 'text'],
         require_auth = True
     )
-    
+
     """ direct_messages/destroy """
     destroy_direct_message = bind_api(
         path = '/direct_messages/destroy/{id}.json',
@@ -348,7 +348,7 @@ class API(object):
     )
 
     """ followers/ids """
-    followers_ids = bind_api(        
+    followers_ids = bind_api(
         path = '/followers/ids.json',
         payload_type = 'json',
         allowed_param = ['id', 'page'],
@@ -390,7 +390,7 @@ class API(object):
                           'profile_sidebar_border_color'],
         require_auth = True
     )
-        
+
     """ account/update_profile_image """
     def update_profile_image(self, filename):
         headers, post_data = API._pack_image(filename=filename, max_size=700, source=self.source)
@@ -768,28 +768,28 @@ class API(object):
         fp = open(filename, 'rb')
         BOUNDARY = 'Tw3ePy'
         body = []
-        if status is not None:            
+        if status is not None:
             body.append('--' + BOUNDARY)
             body.append('Content-Disposition: form-data; name="status"')
             body.append('Content-Type: text/plain; charset=US-ASCII')
             body.append('Content-Transfer-Encoding: 8bit')
             body.append('')
             body.append(status)
-        if source is not None:            
+        if source is not None:
             body.append('--' + BOUNDARY)
             body.append('Content-Disposition: form-data; name="source"')
             body.append('Content-Type: text/plain; charset=US-ASCII')
             body.append('Content-Transfer-Encoding: 8bit')
             body.append('')
             body.append(source)
-        if lat is not None:            
+        if lat is not None:
             body.append('--' + BOUNDARY)
             body.append('Content-Disposition: form-data; name="lat"')
             body.append('Content-Type: text/plain; charset=US-ASCII')
             body.append('Content-Transfer-Encoding: 8bit')
             body.append('')
             body.append(lat)
-        if long is not None:            
+        if long is not None:
             body.append('--' + BOUNDARY)
             body.append('Content-Disposition: form-data; name="long"')
             body.append('Content-Type: text/plain; charset=US-ASCII')
@@ -804,7 +804,7 @@ class API(object):
         body.append(fp.read())
         body.append('--' + BOUNDARY + '--')
         body.append('')
-        fp.close()        
+        fp.close()
         body.append('--' + BOUNDARY + '--')
         body.append('')
         body = '\r\n'.join(body)

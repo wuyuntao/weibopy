@@ -15,7 +15,7 @@ re_path_template = re.compile('{\w+}')
 def bind_api(**config):
 
     class APIMethod(object):
-        
+
         path = config['path']
         payload_type = config.get('payload_type', None)
         payload_list = config.get('payload_list', False)
@@ -23,7 +23,7 @@ def bind_api(**config):
         method = config.get('method', 'GET')
         require_auth = config.get('require_auth', False)
         search_api = config.get('search_api', False)
-                
+
         def __init__(self, api, args, kargs):
             # If authentication is required and no credentials
             # are provided, throw an error.
@@ -42,7 +42,7 @@ def bind_api(**config):
                 self.api_root = api.search_root
             else:
                 self.api_root = api.api_root
-            
+
             # Perform any path variable substitution
             self.build_path()
 
@@ -98,14 +98,14 @@ def bind_api(**config):
             url = self.api_root + self.path
             if self.api.source is not None:
                 self.parameters.setdefault('source',self.api.source)
-            
+
             if len(self.parameters):
                 if self.method == 'GET':
                     url = '%s?%s' % (url, urllib.urlencode(self.parameters))
                 else:
                     self.headers.setdefault("User-Agent","python")
                     if self.post_data is None:
-                        self.headers.setdefault("Accept","text/html")                        
+                        self.headers.setdefault("Accept","text/html")
                         self.headers.setdefault("Content-Type","application/x-www-form-urlencoded")
                         self.post_data = urllib.urlencode(self.parameters)
             # Query the cache if one is available
@@ -175,7 +175,7 @@ def bind_api(**config):
                 except Exception:
                     error_msg = "Twitter error response: status code = %s" % resp.status
                 raise WeibopError(error_msg)
-            
+
             # Parse the response payload
             result = self.api.parser.parse(self, body)
             conn.close()
