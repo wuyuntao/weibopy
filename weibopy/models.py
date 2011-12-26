@@ -76,6 +76,7 @@ class Status(Model):
 
     def favorite(self):
         return self._api.create_favorite(self.id)
+
 class Geo(Model):
 
     @classmethod
@@ -85,7 +86,7 @@ class Geo(Model):
             for k, v in json.items():
                 setattr(geo, k, v)
         return geo
-    
+
 class Comments(Model):
 
     @classmethod
@@ -202,7 +203,7 @@ class Friendship(Model):
 
     @classmethod
     def parse(cls, api, json):
-       
+
         source = cls(api)
         for k, v in json['source'].items():
             setattr(source, k, v)
@@ -326,18 +327,18 @@ class IDSModel(Model):
     @classmethod
     def parse(cls, api, json):
         ids = IDSModel(api)
-        for k, v in json.items():            
+        for k, v in json.items():
             setattr(ids, k, v)
         return ids
-    
+
 class Counts(Model):
     @classmethod
     def parse(cls, api, json):
         ids = Counts(api)
-        for k, v in json.items():            
+        for k, v in json.items():
             setattr(ids, k, v)
         return ids
-    
+
 class ModelFactory(object):
     """
     Used by parsers for creating instances

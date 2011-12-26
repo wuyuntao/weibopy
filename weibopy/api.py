@@ -430,7 +430,7 @@ class API(object):
 
     """ favorites/create """
     create_favorite = bind_api(
-        path = '/favorites/create/{id}.json',
+        path = '/favorites/create.json',
         method = 'POST',
         payload_type = 'status',
         allowed_param = ['id'],
